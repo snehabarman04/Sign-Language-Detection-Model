@@ -1,2 +1,6 @@
 # Sign-Language-Detection-Model
 Developed a real-time sign language detection model leveraging MediaPipe for precise hand landmark detection, and trained a Convolutional Neural Network (CNN) with a softmax activation function to accurately recognize hand signs. The model utilizes OpenCV's VideoCapture feature to detect and interpret user signs live through a webcam.
+
+The training process involved creating a comprehensive dataset of around 900 images, for each of the 26 letters of the English Alphabet, annotated with the corresponding hand landmark coordinates using MediaPipe. The CNN was then trained on this dataset to learn the intricate patterns associated with each sign.
+
+To enable real-time detection, the model integrates OpenCV's VideoCapture feature. This component captures live video feed from a webcam, processes each frame to extract hand landmarks using MediaPipe, and then uses the trained CNN to predict the sign being made by the user. The system is optimized to ensure low latency, providing immediate feedback and recognition of hand gestures. This project showcases the effective use of machine learning and computer vision techniques to bridge communication gaps for individuals using sign language.
