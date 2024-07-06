@@ -1,0 +1,16 @@
+{
+    "train_dir": "Train_Alphabet",
+    "test_dir": "Test_Alphabet",
+    "processed_train_dir": "processed_Train_Alphabet",
+    "processed_test_dir": "processed_Test_Alphabet",
+    "num_train_images": 900,
+    "num_test_images": 100,
+    "image_size": [513, 512],
+    "batch_size": 32,
+    "class_names": [
+      "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L",
+      "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W",
+      "X", "Y", "Z", "Blank"
+  ]
+
+}
