@@ -2,14 +2,12 @@ import os
 import json
 from pathlib import Path
 
-# Load configuration
 base_dir = Path(__file__).parent
 config_path = base_dir / 'config.json'
 
 with open(config_path, 'r') as config_file:
     config = json.load(config_file)
 
-# Define paths
 train_dir = base_dir / config['train_dir']
 test_dir = base_dir / config['test_dir']
 
