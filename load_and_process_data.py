@@ -4,15 +4,11 @@ import os
 import json
 from pathlib import Path
 
-# Assuming config.json is in the same directory as the script
 base_dir = Path(__file__).parent
-
-# Load configuration from config.json
 config_path = base_dir / 'config.json'
 with open(config_path, 'r') as config_file:
     config = json.load(config_file)
 
-# Define paths with raw strings to avoid escape sequence issues
 train_dir = base_dir / r'Train_Alphabet'
 test_dir = base_dir / r'Test_Alphabet'
 processed_train_dir = base_dir / r'processed_Train_Alphabet'
@@ -20,23 +16,19 @@ processed_test_dir = base_dir / r'processed_Test_Alphabet'
 num_train_images = config['num_train_images']
 num_test_images = config['num_test_images']
 
-# Print paths to verify correct setup
 print(f"Train directory: {train_dir}")
 print(f"Test directory: {test_dir}")
 print(f"Processed train directory: {processed_train_dir}")
 print(f"Processed test directory: {processed_test_dir}")
 
-# Mediapipe setup
 mp_hands = mp.solutions.hands
 hands = mp_hands.Hands(static_image_mode=True, max_num_hands=1, min_detection_confidence=0.5)
 mp_drawing = mp.solutions.drawing_utils
 
-# Function to create necessary directories if they don't exist
 def create_directories(base_dir, classes):
     for class_name in classes:
         os.makedirs(os.path.join(base_dir, class_name), exist_ok=True)
 
-# Process images and save them with landmarks
 def process_images(input_dir, output_dir, target_size):
     create_directories(output_dir, os.listdir(input_dir))
     for class_name in os.listdir(input_dir):
@@ -45,7 +37,7 @@ def process_images(input_dir, output_dir, target_size):
         images = os.listdir(class_input_dir)
         for i, image_name in enumerate(images):
             if i >= target_size:
-                break  # Process only target_size images per class
+                break 
             image_path = os.path.join(class_input_dir, image_name)
             image = cv2.imread(image_path)
             image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
@@ -55,15 +47,13 @@ def process_images(input_dir, output_dir, target_size):
                     mp_drawing.draw_landmarks(image, hand_landmarks, mp_hands.HAND_CONNECTIONS)
             output_path = os.path.join(class_output_dir, image_name)
             cv2.imwrite(output_path, image)
-            print(f"Processed image saved: {output_path}")  # Add debugging print statement
+            print(f"Processed image saved: {output_path}") 
 
-# Verify existence of directories before processing
 if not train_dir.exists():
     raise FileNotFoundError(f"Directory '{train_dir}' does not exist.")
 if not test_dir.exists():
     raise FileNotFoundError(f"Directory '{test_dir}' does not exist.")
 
-# Create directories for processed images
 create_directories(processed_train_dir, os.listdir(train_dir))
 create_directories(processed_test_dir, os.listdir(test_dir))
 
